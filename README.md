@@ -82,7 +82,7 @@
 
     http://localhost:8080/order/delete/1
 
-    OBS.: O mesmo irá uma mensagem de texto informando se o item foi excluído ou não
+    OBS.: O serviço irá uma mensagem de texto informando se o item foi excluído ou não
 
 
 # PaymentService
@@ -140,5 +140,5 @@
 
     http://localhost:8080/payment/delete/1
 
-    OBS.: O serviço irá retornar uma transação no formato JSON, após exclui-la
+    OBS.: O serviço irá uma mensagem de texto informando se o item foi excluído ou não
 

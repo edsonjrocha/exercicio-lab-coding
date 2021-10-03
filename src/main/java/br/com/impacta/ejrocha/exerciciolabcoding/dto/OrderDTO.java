@@ -17,14 +17,14 @@ public class OrderDTO {
     private String dataPedido;
     private String status;
     
-    private int idTransacao;
+    private Long idTransacao;
     private String numeroCartao;
     private String validadeCartao;
     private String bandeira;
 
     public OrderDTO(String email, String nomeCompleto, String address, int idPedido, List<String> descricao,
             int qntdPedidos, List<BigDecimal> precoUnitario, BigDecimal precoTotal, String formaPagamento,
-            String dataPedido, String status, int idTransacao, String numeroCartao, String validadeCartao,
+            String dataPedido, String status, Long idTransacao, String numeroCartao, String validadeCartao,
             String bandeira) {
         this.email = email;
         this.nomeCompleto = nomeCompleto;
@@ -131,11 +131,11 @@ public class OrderDTO {
         this.status = status;
     }
 
-    public int getIdTransacao() {
+    public Long getIdTransacao() {
         return idTransacao;
     }
 
-    public void setIdTransacao(int idTransacao) {
+    public void setIdTransacao(Long idTransacao) {
         this.idTransacao = idTransacao;
     }
 

@@ -17,7 +17,7 @@ public class Order {
     private String dataPedido;
     private String status;
     
-    private int idTransacao;
+    private Long idTransacao;
     private String numeroCartao;
     private String validadeCartao;
     private String bandeira;
@@ -28,7 +28,7 @@ public class Order {
 
     public Order(Long id, String email, String nomeCompleto, String address, int idPedido, List<String> descricao,
             int qntdPedidos, List<BigDecimal> precoUnitario, BigDecimal precoTotal, String formaPagamento,
-            String dataPedido, String status, int idTransacao, String numeroCartao, String validadeCartao,
+            String dataPedido, String status, Long idTransacao, String numeroCartao, String validadeCartao,
             String bandeira) {
         this.id = id;
         this.email = email;
@@ -144,11 +144,11 @@ public class Order {
         this.status = status;
     }
 
-    public int getIdTransacao() {
+    public Long getIdTransacao() {
         return idTransacao;
     }
 
-    public void setIdTransacao(int idTransacao) {
+    public void setIdTransacao(Long idTransacao) {
         this.idTransacao = idTransacao;
     }
 

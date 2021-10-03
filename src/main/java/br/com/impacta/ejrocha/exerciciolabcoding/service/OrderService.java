@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import br.com.impacta.ejrocha.exerciciolabcoding.dto.OrderDTO;
 import br.com.impacta.ejrocha.exerciciolabcoding.dto.PaymentDTO;
+import br.com.impacta.ejrocha.exerciciolabcoding.exception.EntityNotFoundException;
+import br.com.impacta.ejrocha.exerciciolabcoding.exception.UpdateErrorException;
 import br.com.impacta.ejrocha.exerciciolabcoding.model.Order;
 import br.com.impacta.ejrocha.exerciciolabcoding.repository.OrderRepository;
 
@@ -23,7 +25,7 @@ public class OrderService {
         this.lastId = 1l;
     }
 
-    public OrderDTO findById(Long orderId) {
+    public OrderDTO findById(Long orderId) throws EntityNotFoundException {
         Order order = repository.findById(orderId);
         System.out.println(order);
         PaymentDTO paymentDTO = this.paymentService.findById(order.getIdTransacao());
@@ -55,18 +57,25 @@ public class OrderService {
         return this.lastId;
     }
 
-    public void update(Long orderId, OrderDTO orderDTO) {
+    public void update(Long orderId, OrderDTO orderDTO) throws EntityNotFoundException, UpdateErrorException {
 
-        //alterando os dados do pagamento
-        this.paymentService.update(orderDTO.getIdTransacao(), new PaymentDTO(orderDTO.getIdTransacao(), orderDTO.getNumeroCartao(), orderDTO.getValidadeCartao(), 
-        orderDTO.getBandeira()));
+        try {
+            //alterando os dados do pagamento
+            this.paymentService.update(orderDTO.getIdTransacao(), new PaymentDTO(orderDTO.getIdTransacao(), orderDTO.getNumeroCartao(), orderDTO.getValidadeCartao(), 
+            orderDTO.getBandeira()));
 
-        //alterando os dados do pedido
-        Order order = repository.findById(orderId);
-        repository.update(order, orderDTO);
+            //alterando os dados do pedido
+            Order order = repository.findById(orderId);
+            repository.update(order, orderDTO);
+        } catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException(e.getMessage());
+        } catch (Exception e) {
+            throw new UpdateErrorException("Não foi possivel alterar o pedido");
+        }
+        
     }
 
-    public boolean delete(Long orderId) {        
+    public boolean delete(Long orderId) throws EntityNotFoundException {        
         Order order = repository.findById(orderId);
 
         //removendo os dados do pagamento    

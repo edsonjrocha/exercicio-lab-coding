@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.impacta.ejrocha.exerciciolabcoding.dto.OrderDTO;
+import br.com.impacta.ejrocha.exerciciolabcoding.exception.EntityNotFoundException;
+import br.com.impacta.ejrocha.exerciciolabcoding.exception.UpdateErrorException;
 import br.com.impacta.ejrocha.exerciciolabcoding.service.OrderService;
 
 @RestController
@@ -27,7 +29,7 @@ public class OrderController {
     private String urlServidor;
     
     @GetMapping("/findById/{orderId}")
-    public ResponseEntity<OrderDTO> findById(@PathVariable("orderId") Long orderId){
+    public ResponseEntity<OrderDTO> findById(@PathVariable("orderId") Long orderId) throws EntityNotFoundException{
         OrderDTO order = service.findById(orderId);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
@@ -40,21 +42,15 @@ public class OrderController {
     }
 
     @PutMapping("/update/{orderId}")
-    public ResponseEntity<OrderDTO> update(@PathVariable("orderId") Long orderId, @RequestBody OrderDTO orderDTO){
+    public ResponseEntity<OrderDTO> update(@PathVariable("orderId") Long orderId, @RequestBody OrderDTO orderDTO) throws EntityNotFoundException, UpdateErrorException{
         service.update(orderId, orderDTO);
         return new ResponseEntity<>(orderDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{orderId}")
-    public ResponseEntity<Object> delete(@PathVariable("orderId") Long orderId) {
-
-        String mensagem = "Não foi possivel excluir o Pedido com ID = " + orderId;
-
-        if(service.delete(orderId)) {
-            mensagem = "Pedido com ID = " + orderId + " excluido com sucesso";
-        }
-        
-        return new ResponseEntity<>(mensagem, HttpStatus.OK);
+    public ResponseEntity<Object> delete(@PathVariable("orderId") Long orderId) throws EntityNotFoundException {
+        service.delete(orderId);
+        return new ResponseEntity<>("Pedido com ID = " + orderId + " excluido com sucesso", HttpStatus.OK);
     }
 
 }

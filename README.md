@@ -84,3 +84,61 @@
 
     OBS.: O mesmo irá uma mensagem de texto informando se o item foi excluído ou não
 
+
+# PaymentService
+
+## Endpoint findById
+
+    Possibilita ao usuario buscar um pagamento (Payment) de acordo com o id da transacao
+
+### Exemplo de utilização
+
+    http://localhost:8080/payment/findById/1
+
+    OBS.: O serviço irá retornar a transação no formato JSON
+
+## Endpoint save
+
+    Possibilita ao usuario salvar uma transação
+
+    OBS.: O serviço irá retornar a URL para acessar a transação salva
+
+### Exemplo de utilização
+
+    http://localhost:8080/payment/save
+
+    Corpo da requisição:
+
+    { 
+        "numeroCartao" : "123", 
+        "validadeCartao" : "10/2028", 
+        "bandeira" : "Visa"
+    }
+
+## Endpoint update
+
+    Possibilita ao usuario atualizar os dados de uma transação, utilizando seu ID para encontra-la
+
+### Exemplo de utilização
+
+    http://localhost:8080/payment/update/1
+
+    Corpo da requisição:
+
+    {
+        "idTransacao" : 1, 
+        "numeroCartao" : "1234", 
+        "validadeCartao" : "10/2026", 
+        "bandeira" : "Mastercard"
+    }
+
+## Endpoint delete
+
+    Possibilita ao usuario deletar uma transação, utilizando seu ID para encontra-lo
+
+### Exemplo de utilização
+
+    http://localhost:8080/payment/delete/1
+
+    OBS.: O serviço irá retornar uma transação no formato JSON, após exclui-la
+

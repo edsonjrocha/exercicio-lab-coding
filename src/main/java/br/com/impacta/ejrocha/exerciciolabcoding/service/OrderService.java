@@ -41,5 +41,15 @@ public class OrderService {
     public Long getLastId() {
         return this.lastId;
     }
+
+    public void update(Long orderId, OrderDTO orderDTO) {
+        Order order = repository.findById(orderId);
+        repository.update(order, orderDTO);
+    }
+
+    public boolean delete(Long orderId) {
+        Order order = repository.findById(orderId);
+        return repository.delete(order);        
+    }
     
 }
